@@ -2,10 +2,10 @@ const TEST_DATA_FLOAT_PRECISION = 18;
 const COLORS = [
   'red',
   'blue',
-  'f0ca0c',
-  '32f00c',
-  '194, 12, 240',
-  '240, 156, 12',
+  '#f0ca0c',
+  '#32f00c',
+  'rgb(194, 12, 240)',
+  'rgb(240, 156, 12)',
 ];
 
 export class TestData {

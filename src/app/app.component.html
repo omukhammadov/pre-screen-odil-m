@@ -45,7 +45,11 @@
             <td>{{ item.id }}</td>
             <td>{{ item.int }}</td>
             <td>{{ item.float }}</td>
-            <td>{{ item.color }}</td>
+            <td>
+              <span [ngStyle]="{ 'background-color': item.color }">{{
+                item.color
+              }}</span>
+            </td>
             <td>
               <table class="child-table">
                 <thead>
@@ -55,7 +59,12 @@
                 <tbody>
                   <tr>
                     <td>{{ item.child.id }}</td>
-                    <td>{{ item.child.color }}</td>
+                    <td>
+                      <span
+                        [ngStyle]="{ 'background-color': item.child.color }"
+                        >{{ item.child.color }}</span
+                      >
+                    </td>
                   </tr>
                 </tbody>
               </table>
