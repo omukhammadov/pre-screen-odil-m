@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { WorkerService } from './worker/worker.service';
 import { TestData } from './worker/test-data.model';
+
+const MAX_DATA_SIZE = 10;
 
 @Component({
   selector: 'app-root',
@@ -10,10 +12,9 @@ import { TestData } from './worker/test-data.model';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
-  title = 'pre-screen-odil-m';
+
   timer = 2000;
   size = 10;
-
   dataSource$!: Observable<TestData[]>;
 
   constructor(private readonly workerService: WorkerService) {}
@@ -21,7 +22,11 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.workerService.startStreamOfData(this.size, this.timer);
 
-    this.dataSource$ = this.workerService.onMessage$;
+    this.dataSource$ = this.workerService.onMessage$.pipe(
+      map((arr) =>
+        arr.length > MAX_DATA_SIZE ? arr.splice(-MAX_DATA_SIZE) : arr
+      )
+    );
   }
 
   onSizeChange(): void {

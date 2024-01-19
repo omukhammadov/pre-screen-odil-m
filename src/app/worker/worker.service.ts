@@ -7,11 +7,12 @@ import {
   WorkerTask,
   WorkerTaskType,
 } from './worker.interface';
+import { TestData } from './test-data.model';
 
 @Injectable({ providedIn: 'root' })
 export class WorkerService {
   private _worker!: Worker;
-  private readonly _onMessageSubject = new BehaviorSubject<any>(null);
+  private readonly _onMessageSubject = new BehaviorSubject<TestData[]>([]);
 
   public readonly onMessage$ = this._onMessageSubject.asObservable();
 
@@ -56,8 +57,8 @@ export class WorkerService {
   private initWorker(): void {
     this._worker = new Worker(new URL('./worker', import.meta.url));
     this._worker.onmessage = ({ data }) => {
-      this._onMessageSubject.next(data);
       console.log('Page received a message: ', data);
+      this._onMessageSubject.next(data);
     };
   }
 }
