@@ -1,11 +1,68 @@
-<div>
-  <label
-    >Timer, ms
-    <input
-      id="timer"
-      type="number"
-      (change)="onTimerChange()"
-      [(ngModel)]="timer"
-    />
-  </label>
+<div class="container">
+  <div class="content">
+    <div class="inputs-section">
+      <div class="input-item">
+        <label for="timer">Timer, ms </label>
+        <div>
+          <input
+            id="timer"
+            type="number"
+            (change)="onTimerChange()"
+            [(ngModel)]="timer"
+          />
+        </div>
+      </div>
+      <div class="input-item">
+        <label for="size">Array size</label>
+        <div>
+          <input
+            id="size"
+            type="number"
+            (change)="onSizeChange()"
+            [(ngModel)]="size"
+          />
+        </div>
+      </div>
+      <div class="input-item">
+        <label for="additionalIds">Additional array ids</label>
+        <div>
+          <input id="additionalIds" type="string" />
+        </div>
+      </div>
+    </div>
+
+    <table class="main-table" *ngIf="dataSource$ | async as data">
+      <thead>
+        <th>id</th>
+        <th>int</th>
+        <th>float</th>
+        <th>color</th>
+        <th>child</th>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of data">
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.int }}</td>
+            <td>{{ item.float }}</td>
+            <td>{{ item.color }}</td>
+            <td>
+              <table class="child-table">
+                <thead>
+                  <th>id</th>
+                  <th>color</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ item.child.id }}</td>
+                    <td>{{ item.child.color }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { WorkerService } from './worker/worker.service';
+import { TestData } from './worker/test-data.model';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +11,17 @@ import { WorkerService } from './worker/worker.service';
 export class AppComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
   title = 'pre-screen-odil-m';
-  timer = 5000;
+  timer = 2000;
   size = 10;
+
+  dataSource$!: Observable<TestData[]>;
 
   constructor(private readonly workerService: WorkerService) {}
 
   ngOnInit(): void {
     this.workerService.startStreamOfData(this.size, this.timer);
 
-    this.workerService.onMessage$
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe((message) => {});
+    this.dataSource$ = this.workerService.onMessage$;
   }
 
   onSizeChange(): void {
