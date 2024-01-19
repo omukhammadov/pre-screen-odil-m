@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import {
   WorkerChangeIntervalTask,
   WorkerChangeSizeTask,
@@ -14,7 +14,9 @@ export class WorkerService {
   private _worker!: Worker;
   private readonly _onMessageSubject = new BehaviorSubject<TestData[]>([]);
 
-  public readonly onMessage$ = this._onMessageSubject.asObservable();
+  public readonly onMessage$ = this._onMessageSubject.pipe(
+    map((arr) => arr.map((item) => new TestData(item)))
+  );
 
   constructor() {
     this.initWorker();

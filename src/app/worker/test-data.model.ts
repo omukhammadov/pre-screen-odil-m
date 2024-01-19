@@ -19,12 +19,20 @@ export class TestData {
 
   public child!: TestDataChild;
 
-  constructor() {
-    this.id = getRandomId();
-    this.int = getRandomInt();
-    this.float = getRandomFloat();
-    this.color = getRandomColor();
-    this.child = new TestDataChild();
+  constructor(testData?: TestData) {
+    if (testData) {
+      this.id = testData.id;
+      this.int = testData.int;
+      this.float = testData.float;
+      this.color = testData.color;
+      this.child = new TestDataChild(testData.child);
+    } else {
+      this.id = getRandomId();
+      this.int = getRandomInt();
+      this.float = getRandomFloat();
+      this.color = getRandomColor();
+      this.child = new TestDataChild();
+    }
   }
 }
 
@@ -33,9 +41,14 @@ export class TestDataChild {
 
   public color!: string;
 
-  constructor() {
-    this.id = getRandomId();
-    this.color = getRandomColor();
+  constructor(testDataChild?: TestDataChild) {
+    if (testDataChild) {
+      this.id = testDataChild.id;
+      this.color = testDataChild.color;
+    } else {
+      this.id = getRandomId();
+      this.color = getRandomColor();
+    }
   }
 }
 
