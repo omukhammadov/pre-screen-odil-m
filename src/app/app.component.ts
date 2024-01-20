@@ -23,10 +23,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.workerService.startStreamOfData(this.size, this.timer);
 
-    this.dataSource$ = this.workerService.onMessage$.pipe(
-      this.limitToMaxSize(),
-      this.replaceIds()
-    );
+    this.dataSource$ = this.workerService
+      .getStreamOfData()
+      .pipe(this.limitToMaxSize(), this.replaceIds());
   }
 
   onSizeChange(): void {
