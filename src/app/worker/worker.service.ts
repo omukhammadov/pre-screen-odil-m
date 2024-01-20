@@ -7,7 +7,7 @@ import {
   WorkerTask,
   WorkerTaskType,
 } from './worker.interface';
-import { TestData } from './test-data.model';
+import { TestData } from '../models/test-data.model';
 
 @Injectable({ providedIn: 'root' })
 export class WorkerService {

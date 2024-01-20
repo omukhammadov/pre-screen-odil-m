@@ -11,7 +11,7 @@ import {
   switchMap,
   takeUntil,
 } from 'rxjs';
-import { TestData } from './test-data.model';
+import { TestData } from '../models/test-data.model';
 import { StartSteamPayload, WorkerTaskType } from './worker.interface';
 
 const DEFAULT_SIZE = 10;

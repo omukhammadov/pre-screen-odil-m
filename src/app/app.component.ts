@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
 import { WorkerService } from './worker/worker.service';
-import { TestData } from './worker/test-data.model';
+import { TestData } from './models/test-data.model';
 
 const MAX_DATA_SIZE = 10;
 
