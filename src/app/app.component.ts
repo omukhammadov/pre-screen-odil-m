@@ -45,22 +45,24 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private limitToMaxSize() {
-    return map<TestData[], TestData[]>((arr) =>
-      arr.length > MAX_DATA_SIZE ? arr.splice(-MAX_DATA_SIZE) : arr
+    return map<TestData[], TestData[]>((testDataArr) =>
+      testDataArr.length > MAX_DATA_SIZE
+        ? testDataArr.splice(-MAX_DATA_SIZE)
+        : testDataArr
     );
   }
 
   private replaceIds() {
-    return map<TestData[], TestData[]>((arr) => {
-      const ids = this.additionalIdsSubject.getValue();
+    return map<TestData[], TestData[]>((testDataArr) => {
+      const additionalIds = this.additionalIdsSubject.getValue();
 
-      if (ids.length) {
-        arr.forEach((item, index) => {
-          ids[index] ? (item.id = ids[index]) : null;
+      if (additionalIds.length) {
+        testDataArr.forEach((testData, index) => {
+          testData.replaceId(additionalIds[index]);
         });
       }
 
-      return arr;
+      return testDataArr;
     });
   }
 

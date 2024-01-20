@@ -34,6 +34,12 @@ export class TestData {
       this.child = new TestDataChild();
     }
   }
+
+  replaceId(id: string): void {
+    if (typeof id === 'string') {
+      this.id = id;
+    }
+  }
 }
 
 export class TestDataChild {
