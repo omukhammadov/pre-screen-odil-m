@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
-import { WorkerService } from './worker/worker.service';
+import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { TestData } from './models/test-data.model';
+import { WorkerService } from './worker/worker.service';
 
 const MAX_DATA_SIZE = 10;
 
@@ -10,9 +10,8 @@ const MAX_DATA_SIZE = 10;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, OnDestroy {
-  private destroy$$ = new Subject<void>();
-  private additionalIdsSubject = new BehaviorSubject<string[]>([]);
+export class AppComponent implements OnInit {
+  private readonly additionalIdsSubject = new BehaviorSubject<string[]>([]);
 
   timer = 2000;
   size = 10;
@@ -64,10 +63,5 @@ export class AppComponent implements OnInit, OnDestroy {
 
       return testDataArr;
     });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$$.next();
-    this.destroy$$.complete();
   }
 }
